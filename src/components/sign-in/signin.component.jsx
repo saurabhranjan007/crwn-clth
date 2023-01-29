@@ -11,7 +11,8 @@ import {
 import FormInputComponent from '../form-input/form-input.component';
 import './signin.styles.scss'
 
-import { UserContext } from '../../context/user.context';
+// import { UserContext } from '../../context/user.context'; // removed for central auth
+
 
 import ButtonComponent from '../button/button.component';
 
@@ -27,7 +28,7 @@ function SigninComponent() {
   const { email, password } = formFields; 
 
   // Setting the Context Value, so it can be accessed thro-out the app 
-  const { setCurrentUser } = useContext(UserContext)
+  // const { setCurrentUser } = useContext(UserContext) // removed for central auth
 
   // generic event handler for the form fields -->> 
   const handleChange = (event) => {
@@ -44,7 +45,7 @@ function SigninComponent() {
       console.log("user-singin :: ", user);  
       
       // setting the user data to "UserContext" so it is accessible in other components 
-      await setCurrentUser(user)
+      // await setCurrentUser(user) // removed for central auth
 
       await setFormFields(defaultFormFields); 
 
@@ -66,9 +67,10 @@ function SigninComponent() {
 
   // Setting up Google Auth (Sign In With Google) ⏬
   const logGoogleUser = async() => {
-    const { user } = await signInWithGooglePopup();
+    // const { user } = await signInWithGooglePopup();
+    await signInWithGooglePopup();
     // Creating user document in firestore db
-    await createUserDocumentFromAuth(user); 
+    // await createUserDocumentFromAuth(user); // removed for central auth 
   }
 
   

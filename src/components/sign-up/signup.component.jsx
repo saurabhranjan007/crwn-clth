@@ -7,7 +7,7 @@ import {
 import FormInputComponent from '../form-input/form-input.component';
 import './signup.styles.scss'
 
-import { UserContext } from '../../context/user.context';
+// import { UserContext } from '../../context/user.context'; // removed for central auth
 
 import ButtonComponent from '../button/button.component';
 
@@ -25,7 +25,7 @@ function SignupComponent() {
   const { displayName, email, password, confirmPassword } = formFields; 
 
   // Getting the data setter function for the user from UserContext
-  const { setCurrentUser } = useContext(UserContext)
+  // const { setCurrentUser } = useContext(UserContext) // removed for central auth
 
   // generic event handler for the form fields -->> 
   const handleChange = (event) => {
@@ -48,7 +48,7 @@ function SignupComponent() {
       console.log("resssssssss ", user);
 
       // Setting/storing the data for user using UserContext 
-      await setCurrentUser(user)
+      // await setCurrentUser(user) // removed for central auth
 
       const userRef = await createUserDocumentFromAuth(user, { displayName });
       console.log("userRef__ :", userRef);

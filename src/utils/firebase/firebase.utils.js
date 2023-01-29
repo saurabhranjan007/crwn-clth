@@ -7,13 +7,17 @@ import {
     createUserWithEmailAndPassword, // native auth (doesn't require any provider)
     signInWithEmailAndPassword, 
     signOut,
+    onAuthStateChanged, 
 } from 'firebase/auth'; 
+
+// :>> Observable listeners are (here - onAuthStateChanged) hooked to some stream of events where 
+//     it gets triggered based on changes in those events (like Sign-in | Sign-out)
 
 import {
     getFirestore, // firebase cloud storage
-    doc, // doc  the document instances
-    getDoc, // to access that data, we use getDoc 
-    setDoc, // to set that data, we use setDoc
+    doc, // document instances
+    getDoc, // to access the data 
+    setDoc, // to set the data 
 } from 'firebase/firestore'
 
 
@@ -118,3 +122,12 @@ export const SignInWithEmailAndPass = async(email, password) => {
 export const SignOutUser = async() => {
     return await signOut(auth); 
 }
+
+// Centralised event handling for (Sign-in | Sign-out)
+export const onAuthStateChangedListener = async(callback) => {
+
+    if(!callback) return; // no callback won't do nothing 
+    onAuthStateChanged(auth, callback)
+}
+// :>> onAuthStateChanged - it takes two params, one the auth and another a callback func 
+//     which gets triggered on the state change (to make it generic, call the func directly)

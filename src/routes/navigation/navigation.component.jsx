@@ -12,16 +12,20 @@ import { SignOutUser } from '../../utils/firebase/firebase.utils'
 
 export default function NavigationComponent() {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext); 
-    console.log("current user => ", currentUser);
+    const { 
+        currentUser, 
+        // setCurrentUser // removed for central auth 
+    } = useContext(UserContext); 
+    console.log("current user nav => ", currentUser);
 
-    const handleSignOut = async() => {
-        console.log("Inside SignOut");
+    // const handleSignOut = async() => {
+    //     console.log("Inside SignOut");
 
-        await SignOutUser(); 
-        await  setCurrentUser(null); 
-        // await alert("User signed out!")
-    }
+    //     await SignOutUser(); 
+    //     await  setCurrentUser(null); 
+    //     // await alert("User signed out!")
+    // } 
+    // removed for central auth ⬆️ 
     
 
   return (
@@ -35,11 +39,14 @@ export default function NavigationComponent() {
 
                 <div className='nav-links-container'>
                     <Link className='nav-link' to="/home">HOME</Link>
-                    {
-                        currentUser ? 
-                            <button className='nav-link' onClick={handleSignOut}>SIGN OUT</button>
-                        : 
-                            <Link className='nav-link' to="/auth">SIGN IN</Link>
+                    {currentUser ? 
+                        <button 
+                            className='nav-link' 
+                            // onClick={handleSignOut} // removed for central auth
+                            onClick={() => SignOutUser()}
+                        >SIGN OUT</button>
+                    : 
+                        <Link className='nav-link' to="/auth">SIGN IN</Link>
                     }
                 </div>
 
